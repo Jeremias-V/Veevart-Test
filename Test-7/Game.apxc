@@ -1,0 +1,65 @@
+public class Game {
+    private List<Integer> board;
+    private Map<Integer, Integer> movements;
+    private Integer currentPosition;
+    private Integer currentPlay;
+    
+    public Game(Integer boardSize, Map<Integer, Integer> movements) {
+        this.board = new List<Integer>();
+        for(Integer i = 0; i < boardSize+1; i++){
+            this.board.add(i);
+        }
+    }
+    
+    private void setUpGame() {
+        this.currentPosition = 0;
+        this.currentPlay = 0;
+    }
+    
+    private Boolean simulate() {
+        Integer dice = Integer.valueof((Math.random() * 5) + 1);
+        this.currentPlay++;
+        System.debug(this.currentPlay + '. Dado arroja ' + dice);
+        Integer newPosition = this.currentPosition + dice;
+        
+        if (newPosition < 25) {
+            this.currentPosition = newPosition;
+            this.currentPlay++;
+            System.debug(this.currentPlay + '. Jugador avanza a cuadro ' + newPosition);
+            Integer pos = this.movements.get(newPosition);
+            if (pos != null) {
+                
+                this.currentPlay++;
+                this.currentPosition = pos;
+                if (this.currentPosition > newPosition) {
+                    System.debug(this.currentPlay + '. Jugador sube por escalera al cuadro ' + this.currentPosition);
+                } else {
+                    System.debug(this.currentPlay + '. Jugador desciende al cuadro ' + this.currentPosition);
+                }
+            }
+            
+            return True;
+            
+        } else {
+            
+            this.currentPlay++;
+            if (newPosition == 25) {
+                System.debug(this.currentPlay + '. Jugador llega al cuadro 25');
+            } else {
+                System.debug(this.currentPlay + '. Jugador supera el cuadro 25');
+            }
+            
+            return False;
+            
+        }
+        
+    }
+    
+    public void run() {
+        this.setUpGame();
+        while (this.simulate()) {}
+        this.currentPlay++;
+        System.debug(this.currentPlay + '. Fin');
+    }
+    
+}

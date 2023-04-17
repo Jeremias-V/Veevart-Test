@@ -1,0 +1,15 @@
+public class RunGame {
+    private Map<Integer, Integer> movements = new Map<Integer, Integer>{
+        3 => 11,
+        6 => 17,
+        9 => 18,
+        10 => 12,
+        14 => 4,
+        19 => 8,
+        24 => 16,
+        22 => 20};
+    private Game g = new Game(25, movements);
+    public void run(){
+        this.g.run();
+    }
+}
